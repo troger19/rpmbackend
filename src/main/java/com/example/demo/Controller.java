@@ -10,15 +10,15 @@ import java.util.List;
 @RestController
 public class Controller {
 
-    @RequestMapping("/greeting")
-    public ResponseEntity greeting() {
-        return ResponseEntity.accepted().body("ahoojo");
+    @RequestMapping("/hello")
+    public ResponseEntity hello() {
+        return ResponseEntity.accepted().body("ahoooj");
     }
 
     @Autowired
     private TrainingRepository trainingRepository;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Training> list() {
         return trainingRepository.findAll();
     }
