@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Training {
@@ -12,7 +13,7 @@ public class Training {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date date;
-    private String rpm;
+    private List<Number> rpm;
 
     public Date getDate() {
         return date;
@@ -22,11 +23,11 @@ public class Training {
         this.date = date;
     }
 
-    public String getRpm() {
+    public List<Number> getRpm() {
         return rpm;
     }
 
-    public void setRpm(String rpm) {
+    public void setRpm(List<Number> rpm) {
         this.rpm = rpm;
     }
 }
