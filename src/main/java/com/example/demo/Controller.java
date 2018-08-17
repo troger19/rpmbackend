@@ -23,6 +23,11 @@ public class Controller {
         return trainingRepository.findAll();
     }
 
+    @DeleteMapping("/delete")
+    public void delete() {
+        trainingRepository.deleteAll();
+    }
+
     @CrossOrigin(origins = "*")
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
