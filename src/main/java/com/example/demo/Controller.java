@@ -23,6 +23,7 @@ public class Controller {
         return trainingRepository.findAll();
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
     public void create(@RequestBody Training training) {
