@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +10,8 @@ public class Training {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date date;
-    private List<Number> rpm;
+    @ElementCollection(targetClass = Integer.class)
+    private List<Integer> rpm;
 
     public Date getDate() {
         return date;
@@ -23,11 +21,11 @@ public class Training {
         this.date = date;
     }
 
-    public List<Number> getRpm() {
+    public List<Integer> getRpm() {
         return rpm;
     }
 
-    public void setRpm(List<Number> rpm) {
+    public void setRpm(List<Integer> rpm) {
         this.rpm = rpm;
     }
 }
