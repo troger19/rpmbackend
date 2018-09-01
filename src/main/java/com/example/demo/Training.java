@@ -13,6 +13,7 @@ public class Training {
     private Date date;
     @ElementCollection(targetClass = Integer.class)
     private List<Integer> rpm;
+    private int duration;
     private BigDecimal max;
     private BigDecimal average;
 
@@ -30,6 +31,14 @@ public class Training {
 
     public void setRpm(List<Integer> rpm) {
         this.rpm = rpm;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public BigDecimal getMax() {
