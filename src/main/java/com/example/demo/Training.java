@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,8 @@ public class Training {
     private Date date;
     @ElementCollection(targetClass = Integer.class)
     private List<Integer> rpm;
+    private BigDecimal max;
+    private BigDecimal average;
 
     public Date getDate() {
         return date;
@@ -27,5 +30,21 @@ public class Training {
 
     public void setRpm(List<Integer> rpm) {
         this.rpm = rpm;
+    }
+
+    public BigDecimal getMax() {
+        return max;
+    }
+
+    public void setMax(BigDecimal max) {
+        this.max = max;
+    }
+
+    public BigDecimal getAverage() {
+        return average;
+    }
+
+    public void setAverage(BigDecimal average) {
+        this.average = average;
     }
 }

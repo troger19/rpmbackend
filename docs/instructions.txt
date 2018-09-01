@@ -6,10 +6,14 @@ Password:
 heroku create
 
 git push heroku master
+//if heroku git repository is not set to the correct one, you can easily add it
+//heroku git:remote -a rpmbackend
+
 
 heroku open
 
+// only for the first time.. add postress support
 heroku addons:create heroku-postgresql
-
+//see some postgress configurations
 heroku config
 heroku pg
