@@ -1,23 +1,40 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Training {
+public class Training implements Serializable {
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(name = "ID", unique = true, nullable = false)
+    private Integer trainingId;
     private Date date;
     @ElementCollection(targetClass = Integer.class)
     private List<Integer> rpm;
     private Integer duration;
     private BigDecimal average;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "personId", nullable = false)
+
+    @JsonIgnore
+    @ManyToOne
     private Person person;
+
+    public Training() {
+    }
+
+    public Integer getTrainingId() {
+        return trainingId;
+    }
+
+    public void setTrainingId(Integer trainingId) {
+        this.trainingId = trainingId;
+    }
 
     public Date getDate() {
         return date;

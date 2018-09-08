@@ -26,6 +26,7 @@ public class Controller {
     @CrossOrigin(origins = "*")
     @GetMapping("/all")
     public List<Training> list() {
+//        return personRepository.findByName("Jano").get(0).getTrainings();
         return trainingRepository.findAll();
     }
 
@@ -45,8 +46,8 @@ public class Controller {
         training.setAverage(trainingDto.getAverage());
         training.setDuration(trainingDto.getDuration());
         training.setRpm(trainingDto.getRpm());
-        List<Person> byName = personRepository.findByName(trainingDto.getPersonName());
-        training.setPerson(byName.isEmpty() ? null : byName.get(0));
+        Person person = personRepository.findByName(trainingDto.getPersonName());
+        training.setPerson(person);
         trainingRepository.save(training);
     }
 
@@ -54,9 +55,10 @@ public class Controller {
     @PostMapping("/createPerson")
     @ResponseStatus(HttpStatus.OK)
     public void createPerson(@RequestBody String name) {
-        List<Person> person = personRepository.findByName(name);
-        if (person.isEmpty()) {
-            personRepository.save(new Person(name));
+        Person person = personRepository.findByName(name);
+        if (person == null) {
+            Person s = new Person(name);
+            personRepository.save(s);
         }
     }
 
