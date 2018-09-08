@@ -10,6 +10,7 @@ public class Person implements Serializable {
     public Person() {
     }
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true, nullable = false)
