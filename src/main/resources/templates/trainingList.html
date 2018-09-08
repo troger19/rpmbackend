@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Person List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Training List</h1>
+<!--<a href="addPerson">Add Person</a>-->
+<br/><br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>Date</th>
+            <th>Duration</th>
+            <th>Average</th>
+            <th>Person</th>
+        </tr>
+        <tr th:each="training : ${trainings}">
+            <td th:utext="${training.getDate()}">...</td>
+            <td th:utext="${training.getDuration()}">...</td>
+            <td th:utext="${training.getAverage()}">...</td>
+            <td th:utext="${training.getPerson().getName()}">...</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

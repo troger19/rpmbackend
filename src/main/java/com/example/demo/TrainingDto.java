@@ -1,23 +1,15 @@
 package com.example.demo;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-public class Training {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class TrainingDto {
     private Date date;
-    @ElementCollection(targetClass = Integer.class)
     private List<Integer> rpm;
     private Integer duration;
     private BigDecimal average;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "personId", nullable = false)
-    private Person person;
+    private String personName;
 
     public Date getDate() {
         return date;
@@ -51,11 +43,11 @@ public class Training {
         this.average = average;
     }
 
-    public Person getPerson() {
-        return person;
+    public String getPersonName() {
+        return personName;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPersonName(String personName) {
+        this.personName = personName;
     }
 }

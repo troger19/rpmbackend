@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Welcome</h1>
+
+<a th:href="@{/trainings}">Trainings</a>
+
+<div class="three columns">
+    <form th:method="delete" th:action="@{/delete}">
+        <button class="button u-full-width" type="submit">Delete</button>
+    </form>
+</div>
+
+</body>
+
+</html>

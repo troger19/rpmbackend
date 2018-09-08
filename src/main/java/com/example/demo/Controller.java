@@ -9,6 +9,12 @@ import java.util.List;
 
 @RestController
 public class Controller {
+    @Autowired
+    private TrainingRepository trainingRepository;
+
+    @Autowired
+    private PersonRepository personRepository;
+
 
     @CrossOrigin(origins = "*")
     @RequestMapping("/hello")
@@ -16,8 +22,6 @@ public class Controller {
         return ResponseEntity.accepted().body("ahoooj");
     }
 
-    @Autowired
-    private TrainingRepository trainingRepository;
 
     @CrossOrigin(origins = "*")
     @GetMapping("/all")
@@ -34,9 +38,26 @@ public class Controller {
     @CrossOrigin(origins = "*")
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
-    public void create(@RequestBody Training training) {
-        System.out.println(training.getRpm());
+    public void create(@RequestBody TrainingDto trainingDto) {
+        System.out.println(trainingDto.getRpm());
+        Training training = new Training();
+        training.setDate(trainingDto.getDate());
+        training.setAverage(trainingDto.getAverage());
+        training.setDuration(trainingDto.getDuration());
+        training.setRpm(trainingDto.getRpm());
+        List<Person> byName = personRepository.findByName(trainingDto.getPersonName());
+        training.setPerson(byName.isEmpty() ? null : byName.get(0));
         trainingRepository.save(training);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/createPerson")
+    @ResponseStatus(HttpStatus.OK)
+    public void createPerson(@RequestBody String name) {
+        List<Person> person = personRepository.findByName(name);
+        if (person.isEmpty()) {
+            personRepository.save(new Person(name));
+        }
     }
 
     @CrossOrigin(origins = "*")
