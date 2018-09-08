@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class Controller {
@@ -25,9 +26,24 @@ public class Controller {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/all")
-    public List<Training> list() {
+    public List<TrainingDto> list() {
 //        return personRepository.findByName("Jano").get(0).getTrainings();
-        return trainingRepository.findAll();
+//        trainingRepository.findAll().stream().map(
+//                TrainingDto trainingDto = new TrainingDto();
+//        trainingDto.setDate();
+//                t->
+//        )
+
+        List<TrainingDto> result = trainingRepository.findAll().stream().map(temp -> {
+            TrainingDto obj = new TrainingDto();
+            obj.setDate(temp.getDate());
+            obj.setAverage(temp.getAverage());
+            obj.setDuration(temp.getDuration());
+            obj.setRpm(temp.getRpm());
+            obj.setPersonName(temp.getPerson().getName());
+            return obj;
+        }).collect(Collectors.toList());
+        return result;
     }
 
     @CrossOrigin(origins = "*")
