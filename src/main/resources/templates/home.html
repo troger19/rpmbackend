@@ -9,9 +9,10 @@
 <h1>Welcome</h1>
 
 <a th:href="@{/trainings}">Trainings</a>
+<a th:href="@{/persons}">Persons</a>
 
 <div class="three columns">
-    <form th:method="delete" th:action="@{/delete}">
+    <form th:method="delete" th:action="@{/training}">
         <button class="button u-full-width" type="submit">Delete</button>
     </form>
 </div>

@@ -3,27 +3,32 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Person List</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>-->
+    <!--<link rel="stylesheet" href="../static/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
 <body>
 <h1>Training List</h1>
-<!--<a href="addPerson">Add Person</a>-->
-<br/><br/>
-<div>
-    <table border="1">
-        <tr>
-            <th>Date</th>
-            <th>Duration</th>
-            <th>Average</th>
-            <th>Person</th>
-        </tr>
-        <tr th:each="training : ${trainings}">
-            <td th:utext="${training.getDate()}">...</td>
-            <td th:utext="${training.getDuration()}">...</td>
-            <td th:utext="${training.getAverage()}">...</td>
-            <td th:utext="${training.getPerson().getName()}">...</td>
-        </tr>
-    </table>
-</div>
+<table class="table table-hover table-dark">
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Duration</th>
+        <th>Average</th>
+        <th>Person</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="training : ${trainings}">
+        <td th:utext="${training.getTrainingId()}">...</td>
+        <td th:utext="${training.getDate()}">...</td>
+        <td th:utext="${training.getDuration()}"></td>
+        <td th:utext="${training.getAverage()}">...</td>
+        <td th:utext="${training.getPerson().getName()}">...</td>
+        <td><a href="/delete/1" th:href="@{/delete/__${training.trainingId}__}" class="btn btn-danger">Delete</a></td>
+    </tr>
+</table>
 </body>
 </html>

@@ -47,8 +47,14 @@ public class Controller {
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/delete")
+    @DeleteMapping("/training")
     public void delete() {
+        trainingRepository.deleteAll();
+    }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/training/{id}")
+    public void deleteSinleTraining(@PathVariable String id) {
         trainingRepository.deleteAll();
     }
 

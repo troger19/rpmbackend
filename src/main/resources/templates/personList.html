@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Person List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<h1>Person List</h1>
+
+
+<form action="#" th:action="@{/addPerson}" th:object="${person1}" method="post">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}" class="form-control"/></td>
+            <td>
+                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            </td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+        </tr>
+    </table>
+</form>
+
+<table class="table table-hover table-dark">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="person : ${persons}">
+        <td th:utext="${person.getPersonId()}">...</td>
+        <td th:utext="${person.getName()}">...</td>
+        <td><a href="/person-delete/1" th:href="@{/person-delete/__${person.personId}__}"
+               class="btn btn-danger">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>

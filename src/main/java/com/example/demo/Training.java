@@ -14,7 +14,7 @@ public class Training implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true, nullable = false)
-    private Integer trainingId;
+    private Long trainingId;
     private Date date;
     @ElementCollection(targetClass = Integer.class)
     private List<Integer> rpm;
@@ -28,11 +28,11 @@ public class Training implements Serializable {
     public Training() {
     }
 
-    public Integer getTrainingId() {
+    public Long getTrainingId() {
         return trainingId;
     }
 
-    public void setTrainingId(Integer trainingId) {
+    public void setTrainingId(Long trainingId) {
         this.trainingId = trainingId;
     }
 
