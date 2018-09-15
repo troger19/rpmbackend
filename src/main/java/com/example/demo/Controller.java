@@ -90,4 +90,29 @@ public class Controller {
         return trainingRepository.getOne(id);
     }
 
+    @CrossOrigin(origins = "*")
+    @PostMapping("/import")
+    @ResponseStatus(HttpStatus.OK)
+    public void create(@RequestBody List<TrainingDto> trainingDtos) {
+        for (TrainingDto trainingDto : trainingDtos) {
+            Training training = new Training();
+            training.setDate(trainingDto.getDate());
+            training.setAverage(trainingDto.getAverage());
+            training.setDuration(trainingDto.getDuration());
+            training.setRpm(trainingDto.getRpm());
+            Person person = personRepository.findByName(trainingDto.getPersonName());
+            training.setPerson(person);
+            trainingRepository.save(training);
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/allPerson")
+    public List<PersonDto> getAllPerson() {
+        return personRepository.findAll().stream().map(temp -> {
+            PersonDto obj = new PersonDto();
+            obj.setName(temp.getName());
+            return obj;
+        }).collect(Collectors.toList());
+    }
 }
