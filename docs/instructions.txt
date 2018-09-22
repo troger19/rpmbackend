@@ -1,7 +1,7 @@
 heroku login
 Enter your Heroku credentials.
 Email: janci.babel@gmail.com
-Password:
+Password: UeNnM0a-
 
 heroku create
 
