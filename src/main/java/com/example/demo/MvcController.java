@@ -1,8 +1,5 @@
 package com.example.demo;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +26,11 @@ public class MvcController {
     @RequestMapping
     public String handleRequest(Model model) {
         model.addAttribute("time", LocalTime.now());
+        return "home";
+    }
+
+    @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
+    public String handleHomeRequest() {
         return "home";
     }
 

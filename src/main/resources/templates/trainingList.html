@@ -11,24 +11,28 @@
 
 </head>
 <body>
-<h1>Trainings</h1>
-<table class="table table-hover table-dark">
-    <tr>
-        <th>ID</th>
-        <th>Date</th>
-        <th>Duration</th>
-        <th>Average</th>
-        <th>Person</th>
-        <th>Delete</th>
-    </tr>
-    <tr th:each="training : ${trainings}">
-        <td th:utext="${training.getTrainingId()}">...</td>
-        <td th:utext="${training.getDate()}">...</td>
-        <td th:utext="${training.getDuration()}"></td>
-        <td th:utext="${training.getAverage()}">...</td>
-        <td th:utext="${training.getPerson().getName()}">...</td>
-        <td><a href="/delete/1" th:href="@{/delete/__${training.trainingId}__}" class="btn btn-danger">Delete</a></td>
-    </tr>
-</table>
+<div class=".container-fluid bg-dark">
+    <p class="text-center h1 text-primary">Training list</p>
+    <a href="/" class="btn btn-info btn-rounded">Home</a>
+    <table class="table table-hover table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Duration</th>
+            <th>Average</th>
+            <th>Person</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="training : ${trainings}">
+            <td th:utext="${training.getTrainingId()}">...</td>
+            <td th:utext="${training.getDate()}">...</td>
+            <td th:utext="${training.getDuration()}"></td>
+            <td th:utext="${training.getAverage()}">...</td>
+            <td th:utext="${training.getPerson().getName()}">...</td>
+            <td><a href="/delete/1" th:href="@{/delete/__${training.trainingId}__}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
