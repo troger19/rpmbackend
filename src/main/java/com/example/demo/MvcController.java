@@ -17,13 +17,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class MvcController {
-    private static final Logger log = LoggerFactory.getLogger(MvcController.class);
 
-    @Autowired
-    private TrainingRepository trainingRepository;
+    private final TrainingRepository trainingRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    private PersonRepository personRepository;
+    public MvcController(TrainingRepository trainingRepository, PersonRepository personRepository) {
+        this.trainingRepository = trainingRepository;
+        this.personRepository = personRepository;
+    }
 
     @RequestMapping
     public String handleRequest(Model model) {
@@ -65,7 +66,6 @@ public class MvcController {
 
     @RequestMapping(value = "/addPerson", method = RequestMethod.POST)
     public String createPerson(@ModelAttribute Person person1, BindingResult bindingResult, Model model) {
-//        Person o = new Person();
         if (bindingResult.hasErrors()) {
             return "personList";
         }
