@@ -1,6 +1,11 @@
-package com.example.demo;
+package com.itible.rpmbackend.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.itible.rpmbackend.dto.PersonDto;
+import com.itible.rpmbackend.dto.TrainingDto;
+import com.itible.rpmbackend.entity.Person;
+import com.itible.rpmbackend.entity.Training;
+import com.itible.rpmbackend.repository.PersonRepository;
+import com.itible.rpmbackend.repository.TrainingRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +16,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class Controller {
-    @Autowired
-    private TrainingRepository trainingRepository;
+public class RpmRestController {
+    private final TrainingRepository trainingRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    private PersonRepository personRepository;
-
+    public RpmRestController(TrainingRepository trainingRepository, PersonRepository personRepository) {
+        this.trainingRepository = trainingRepository;
+        this.personRepository = personRepository;
+    }
 
     @CrossOrigin(origins = "*")
     @RequestMapping("/hello")
@@ -36,7 +42,7 @@ public class Controller {
 //                t->
 //        )
 
-        List<TrainingDto> result = trainingRepository.findAll().stream().map(temp -> {
+        return trainingRepository.findAll().stream().map(temp -> {
             TrainingDto obj = new TrainingDto();
             obj.setDate(temp.getDate());
             obj.setAverage(temp.getAverage());
@@ -45,7 +51,6 @@ public class Controller {
             obj.setPersonName(temp.getPerson().getName());
             return obj;
         }).collect(Collectors.toList());
-        return result;
     }
 
     @CrossOrigin(origins = "*")

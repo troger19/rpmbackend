@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.itible.rpmbackend.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

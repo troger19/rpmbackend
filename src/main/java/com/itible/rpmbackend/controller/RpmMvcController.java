@@ -1,5 +1,9 @@
-package com.example.demo;
+package com.itible.rpmbackend.controller;
 
+import com.itible.rpmbackend.entity.Person;
+import com.itible.rpmbackend.entity.Training;
+import com.itible.rpmbackend.repository.PersonRepository;
+import com.itible.rpmbackend.repository.TrainingRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,12 +17,12 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
-public class MvcController {
+public class RpmMvcController {
 
     private final TrainingRepository trainingRepository;
     private final PersonRepository personRepository;
 
-    public MvcController(TrainingRepository trainingRepository, PersonRepository personRepository) {
+    public RpmMvcController(TrainingRepository trainingRepository, PersonRepository personRepository) {
         this.trainingRepository = trainingRepository;
         this.personRepository = personRepository;
     }
@@ -54,6 +58,12 @@ public class MvcController {
         trainingRepository.deleteById(Long.parseLong(id));
         List<Training> trainings = trainingRepository.findAll();
         model.addAttribute("trainings", trainings);
+        return "trainingList";
+    }
+
+    @RequestMapping(value = {"/deleteAll"}, method = RequestMethod.GET)
+    public String deleteAllTrainings() {
+        trainingRepository.deleteAll();
         return "trainingList";
     }
 

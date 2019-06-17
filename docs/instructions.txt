@@ -20,3 +20,19 @@ heroku pg
 
 
 https://rpmbackend.herokuapp.com/
+
+
+Connect to database on Heroku:
+Go to heroku.com, Click on Heroku Postres  -> Settings -> Database Credentials
+
+Heroku CLI -> Execute in Commnad line
+heroku pg:psql postgresql-acute-84772 --app rpmbackend
+select * from person;
+
+
+
+Backup PostreSQL database
+heroku pg:backups:capture -a rpmbackend
+heroku pg:backups:download -a rpmbackend
+
+Dump is located in directory from which you execute the command.

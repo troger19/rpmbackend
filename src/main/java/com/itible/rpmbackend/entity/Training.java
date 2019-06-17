@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.itible.rpmbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
