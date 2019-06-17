@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class Training implements Serializable {
     @ElementCollection(targetClass = Integer.class)
     private List<Integer> rpm;
     private Integer duration;
-    private BigDecimal average;
+    private Double average;
 
     @JsonIgnore
     @ManyToOne
@@ -60,11 +59,11 @@ public class Training implements Serializable {
         this.duration = duration;
     }
 
-    public BigDecimal getAverage() {
+    public Double getAverage() {
         return average;
     }
 
-    public void setAverage(BigDecimal average) {
+    public void setAverage(Double average) {
         this.average = average;
     }
 

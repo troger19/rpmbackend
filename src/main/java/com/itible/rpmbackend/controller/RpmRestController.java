@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,8 +71,7 @@ public class RpmRestController {
         System.out.println(trainingDto.getRpm());
         Training training = new Training();
         training.setDate(trainingDto.getDate()==null? new Date() : trainingDto.getDate());
-        double average = trainingDto.getRpm().stream().mapToInt(val -> val).average().orElse(0.0);
-        training.setAverage(BigDecimal.valueOf(average));
+        training.setAverage(trainingDto.getAverage());
         training.setDuration(trainingDto.getDuration());
         training.setRpm(trainingDto.getRpm());
         Person person = personRepository.findByName(trainingDto.getPersonName());
@@ -105,8 +103,7 @@ public class RpmRestController {
         for (TrainingDto trainingDto : trainingDtos) {
             Training training = new Training();
             training.setDate(trainingDto.getDate());
-            double average = trainingDto.getRpm().stream().mapToInt(val -> val).average().orElse(0.0);
-            training.setAverage(BigDecimal.valueOf(average));
+            training.setAverage(trainingDto.getAverage());
             training.setDuration(trainingDto.getDuration());
             training.setRpm(trainingDto.getRpm());
             Person person = personRepository.findByName(trainingDto.getPersonName());
