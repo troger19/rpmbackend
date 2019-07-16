@@ -8,7 +8,6 @@ import com.itible.rpmbackend.repository.PersonRepository;
 import com.itible.rpmbackend.repository.TrainingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -27,16 +26,10 @@ public class RpmRestController {
         this.personRepository = personRepository;
     }
 
-    @CrossOrigin(origins = "*")
-    @RequestMapping("/hello")
-    public ResponseEntity hello() {
-        return ResponseEntity.accepted().body("ahoooj");
-    }
-
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/all")
-    public List<TrainingDto> list() {
+    @GetMapping("/training")
+    public List<TrainingDto> getAllTrainings() {
         log.info("All trainings");
         return trainingRepository.findAll().stream().map(temp -> {
             TrainingDto obj = new TrainingDto();
@@ -47,25 +40,39 @@ public class RpmRestController {
             obj.setPersonName(temp.getPerson().getName());
             return obj;
         }).collect(Collectors.toList());
+    }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/training/{name}")
+    public List<TrainingDto> getTrainingsByName(@PathVariable String name) {
+        log.info("Training for user : " + name);
+        return trainingRepository.findByPerson(name).stream().map(temp -> {
+            TrainingDto obj = new TrainingDto();
+            obj.setDate(temp.getDate());
+            obj.setAverage(temp.getAverage());
+            obj.setDuration(temp.getDuration());
+            obj.setRpm(temp.getRpm());
+            obj.setPersonName(temp.getPerson().getName());
+            return obj;
+        }).collect(Collectors.toList());
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/training")
-    public void delete() {
+    public void deleteAllTrainings() {
         trainingRepository.deleteAll();
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/training/{id}")
-    public void deleteSinleTraining(@PathVariable String id) {
-        trainingRepository.deleteAll();
+    public void deleteSingleTraining(@PathVariable Long id) {
+        trainingRepository.deleteById(id);
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/create")
+    @PostMapping("/training")
     @ResponseStatus(HttpStatus.OK)
-    public void create(@RequestBody TrainingDto trainingDto) {
+    public void saveTraining(@RequestBody TrainingDto trainingDto) {
         System.out.println(trainingDto.getRpm());
         Training training = new Training();
         training.setDate(trainingDto.getDate() == null ? new Date() : trainingDto.getDate());
@@ -78,7 +85,7 @@ public class RpmRestController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/createPerson")
+    @PostMapping("/person")
     @ResponseStatus(HttpStatus.OK)
     public void createPerson(@RequestBody String name) {
         Person person = personRepository.findByName(name);
@@ -111,7 +118,7 @@ public class RpmRestController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/allPerson")
+    @GetMapping("/person")
     public List<PersonDto> getAllPerson() {
         return personRepository.findAll().stream().map(temp -> {
             PersonDto obj = new PersonDto();
@@ -122,7 +129,7 @@ public class RpmRestController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/person/{name}")
-    public PersonDto getAllPerson(@PathVariable("name") String name) {
+    public PersonDto getPersonByName(@PathVariable("name") String name) {
         Person person = personRepository.findByName(name);
         if (person == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Person Not Found");
