@@ -52,18 +52,18 @@
         </dependency>
 
         <!--use H2 locally, then comment it out-->
-        <dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-        </dependency>
+        <!--<dependency>-->
+			<!--<groupId>com.h2database</groupId>-->
+			<!--<artifactId>h2</artifactId>-->
+			<!--<scope>runtime</scope>-->
+        <!--</dependency>-->
 
 
-		<!--<dependency>-->
-		<!--<groupId>org.postgresql</groupId>-->
-		<!--<artifactId>postgresql</artifactId>-->
-		<!--<version>9.4.1212.jre7</version>-->
-		<!--</dependency>-->
+		<dependency>
+		<groupId>org.postgresql</groupId>
+		<artifactId>postgresql</artifactId>
+		<version>9.4.1212.jre7</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
