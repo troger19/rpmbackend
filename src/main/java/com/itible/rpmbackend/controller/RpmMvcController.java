@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/")
@@ -61,6 +64,21 @@ public class RpmMvcController {
         return "trainingList";
     }
 
+    @RequestMapping(value = {"/detail/{id}"}, method = RequestMethod.GET)
+    public String trainingDetail(Model model, @PathVariable String id) {
+        Training training = trainingRepository.getOne(Long.parseLong(id));
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = format.format(training.getDate());
+        List<Integer> axisX = IntStream.rangeClosed(1, training.getRpm().size()).boxed().collect(Collectors.toList());
+        model.addAttribute("rpms", training.getRpm());
+        model.addAttribute("axisX", axisX);
+        model.addAttribute("name", training.getPerson().getName());
+        model.addAttribute("date", date);
+        model.addAttribute("average", training.getAverage());
+        model.addAttribute("duration", training.getDuration().toString());
+        return "trainingList";
+    }
+
     @RequestMapping(value = {"/deleteAll"}, method = RequestMethod.GET)
     public String deleteAllTrainings() {
         trainingRepository.deleteAll();
@@ -81,7 +99,6 @@ public class RpmMvcController {
         if (bindingResult.hasErrors()) {
             return "personList";
         }
-
         personRepository.save(person1);
         model.addAttribute("personList", personRepository.findAll());
         return "redirect:/persons";
