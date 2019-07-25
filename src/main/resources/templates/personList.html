@@ -13,12 +13,12 @@
     <p class="text-center h1 text-primary">Person list</p>
     <a href="/" class="btn btn-info btn-rounded">Home</a>
 
-    <form action="#" th:action="@{/addPerson}" th:object="${person1}" method="post">
+    <form action="#" th:action="@{/addPerson}" th:object="${person}" method="post">
         <table>
             <tr>
                 <td><label for="staticEmail" class="col-sm-2 col-form-label text-white">Name:</label></td>
                 <td><input type="text" th:field="*{name}" class="form-control" placeholder="Enter the username"
-                           id="staticEmail"/></td>
+                           id="staticEmail" autocomplete="off"/></td>
                 <td>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </td>

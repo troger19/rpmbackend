@@ -60,12 +60,14 @@ public class RpmRestController {
     @CrossOrigin(origins = "*")
     @DeleteMapping("/training")
     public void deleteAllTrainings() {
+        log.info("delete all trainings");
         trainingRepository.deleteAll();
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/training/{id}")
     public void deleteSingleTraining(@PathVariable Long id) {
+        log.info("delete training with id : " + id);
         trainingRepository.deleteById(id);
     }
 
@@ -73,7 +75,6 @@ public class RpmRestController {
     @PostMapping("/training")
     @ResponseStatus(HttpStatus.OK)
     public void saveTraining(@RequestBody TrainingDto trainingDto) {
-        System.out.println(trainingDto.getRpm());
         Training training = new Training();
         training.setDate(trainingDto.getDate() == null ? new Date() : trainingDto.getDate());
         training.setAverage(trainingDto.getAverage());
@@ -82,6 +83,7 @@ public class RpmRestController {
         Person person = personRepository.findByName(trainingDto.getPersonName());
         training.setPerson(person);
         trainingRepository.save(training);
+        log.info("Saving new training for user: " + person.getName());
     }
 
     @CrossOrigin(origins = "*")
@@ -90,21 +92,24 @@ public class RpmRestController {
     public void createPerson(@RequestBody String name) {
         Person person = personRepository.findByName(name);
         if (person == null) {
-            Person s = new Person(name);
-            personRepository.save(s);
+            Person newPerson = new Person(name);
+            personRepository.save(newPerson);
+            log.info("Creating new user " + newPerson.getName());
         }
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/{id}")
-    public Training get(@PathVariable("id") long id) {
+    @GetMapping("/training/{id}")
+    public Training getSingleTraining(@PathVariable("id") long id) {
+        log.info("Returning training with ID =  " + id);
         return trainingRepository.getOne(id);
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/import")
+    @PostMapping("/training/import")
     @ResponseStatus(HttpStatus.OK)
     public void create(@RequestBody List<TrainingDto> trainingDtos) {
+        log.info("Going to import  " + trainingDtos.size() + " trainings");
         for (TrainingDto trainingDto : trainingDtos) {
             Training training = new Training();
             training.setDate(trainingDto.getDate());
@@ -115,11 +120,13 @@ public class RpmRestController {
             training.setPerson(person);
             trainingRepository.save(training);
         }
+        log.info("All trainings successfully imported.");
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/person")
     public List<PersonDto> getAllPerson() {
+        log.info("Returning all person");
         return personRepository.findAll().stream().map(temp -> {
             PersonDto obj = new PersonDto();
             obj.setName(temp.getName());
@@ -137,6 +144,7 @@ public class RpmRestController {
         PersonDto dto = new PersonDto();
         dto.setName(person.getName());
         dto.setNumberOfTrainings(person.getTrainings().size());
+        log.info("Returning person = " + name);
         return dto;
     }
 }

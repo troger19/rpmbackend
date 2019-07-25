@@ -14,10 +14,14 @@ public class Training implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true, nullable = false)
     private Long trainingId;
-    private Date date;
+
+    private Date date; //TODO specify format in which to save the date  "yyyy-MM-dd HH:mm:ss")
+
     @ElementCollection(targetClass = Integer.class)
     private List<Integer> rpm;
+
     private Integer duration;
+
     private Double average;
 
     @JsonIgnore

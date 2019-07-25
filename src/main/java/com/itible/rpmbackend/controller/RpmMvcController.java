@@ -51,7 +51,7 @@ public class RpmMvcController {
     @RequestMapping(value = {"/persons"}, method = RequestMethod.GET)
     public String personList(Model model) {
         List<Person> persons = personRepository.findAll();
-        model.addAttribute("person1", new Person());
+        model.addAttribute("person", new Person());
         model.addAttribute("persons", persons);
         return "personList";
     }
@@ -76,6 +76,7 @@ public class RpmMvcController {
         model.addAttribute("date", date);
         model.addAttribute("average", training.getAverage());
         model.addAttribute("duration", training.getDuration().toString());
+        model.addAttribute("showButton", true);
         return "trainingList";
     }
 
@@ -90,16 +91,16 @@ public class RpmMvcController {
         personRepository.deleteById(Long.parseLong(id));
         List<Person> persons = personRepository.findAll();
         model.addAttribute("persons", persons);
-        model.addAttribute("person1", new Person());
+        model.addAttribute("person", new Person());
         return "personList";
     }
 
     @RequestMapping(value = "/addPerson", method = RequestMethod.POST)
-    public String createPerson(@ModelAttribute Person person1, BindingResult bindingResult, Model model) {
+    public String createPerson(@ModelAttribute Person person, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "personList";
         }
-        personRepository.save(person1);
+        personRepository.save(person);
         model.addAttribute("personList", personRepository.findAll());
         return "redirect:/persons";
     }
