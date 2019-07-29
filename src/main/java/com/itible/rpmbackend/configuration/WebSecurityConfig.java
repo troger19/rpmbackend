@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/h2-console/**", "/persons/**", "/delete/**", "/deleteAll").hasRole("ADMIN")//allow h2 console and admininistration funcionalities access to admins only
+                .antMatchers("/h2-console/**", "/persons/**", "/delete/**", "/deleteAll","/trainings").hasRole("ADMIN")//allow h2 console and admininistration funcionalities access to admins only
                 .and()
                 .formLogin()
                 .and().csrf().ignoringAntMatchers("/h2-console/**")//don't apply CSRF protection to /h2-console
