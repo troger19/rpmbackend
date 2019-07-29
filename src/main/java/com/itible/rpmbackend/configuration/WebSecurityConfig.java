@@ -31,11 +31,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .authorizeRequests()
                 .antMatchers("/h2-console/**", "/persons/**", "/delete/**", "/deleteAll").hasRole("ADMIN")//allow h2 console and admininistration funcionalities access to admins only
-                .anyRequest().authenticated()//all other urls can be access by any authenticated role
-                .and().formLogin()//enable form login instead of basic login
+                .and()
+                .formLogin()
                 .and().csrf().ignoringAntMatchers("/h2-console/**")//don't apply CSRF protection to /h2-console
-                .and().headers().frameOptions().sameOrigin();//allow use of frame to same origin urls
+                .and()
+                .authorizeRequests()
+                .antMatchers("/training/**").hasRole("ADMIN")
+                .and()
+                .httpBasic();
     }
 }

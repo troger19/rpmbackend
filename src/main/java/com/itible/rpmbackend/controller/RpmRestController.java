@@ -99,13 +99,6 @@ public class RpmRestController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/training/{id}")
-    public Training getSingleTraining(@PathVariable("id") long id) {
-        log.info("Returning training with ID =  " + id);
-        return trainingRepository.getOne(id);
-    }
-
-    @CrossOrigin(origins = "*")
     @PostMapping("/training/import")
     @ResponseStatus(HttpStatus.OK)
     public void create(@RequestBody List<TrainingDto> trainingDtos) {
