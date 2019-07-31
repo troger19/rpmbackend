@@ -23,7 +23,7 @@
         </tr>
         <tr th:each="training : ${trainings}">
             <td th:utext="${training.getTrainingId()}">...</td>
-            <td th:utext="${training.getDate()}">...</td>
+            <td th:utext="${#dates.format(training.getDate(), 'dd.MM.yyyy HH:mm')}">...</td>
             <td th:utext="${training.getDuration()}"></td>
             <td th:utext="${training.getAverage()}">...</td>
             <td th:utext="${training.getPerson().getName()}">...</td>

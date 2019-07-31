@@ -15,7 +15,7 @@ public class Training implements Serializable {
     @Column(name = "ID", unique = true, nullable = false)
     private Long trainingId;
 
-    private Date date; //TODO specify format in which to save the date  "yyyy-MM-dd HH:mm:ss")
+    private Date date;
 
     @ElementCollection(targetClass = Integer.class)
     private List<Integer> rpm;

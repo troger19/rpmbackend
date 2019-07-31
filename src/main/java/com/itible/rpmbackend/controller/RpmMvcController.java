@@ -4,6 +4,7 @@ import com.itible.rpmbackend.entity.Person;
 import com.itible.rpmbackend.entity.Training;
 import com.itible.rpmbackend.repository.PersonRepository;
 import com.itible.rpmbackend.repository.TrainingRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,7 +44,7 @@ public class RpmMvcController {
 
     @RequestMapping(value = {"/trainings"}, method = RequestMethod.GET)
     public String trainingList(Model model) {
-        List<Training> trainings = trainingRepository.findAll();
+        List<Training> trainings = trainingRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
         model.addAttribute("trainings", trainings);
         return "trainingList";
     }
