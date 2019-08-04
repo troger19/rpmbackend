@@ -22,7 +22,8 @@ public class Training implements Serializable {
 
     private Integer duration;
 
-    private Double average;
+    private Double averageRpm;
+    private Double averageRpmByTime;
 
     @JsonIgnore
     @ManyToOne
@@ -63,12 +64,20 @@ public class Training implements Serializable {
         this.duration = duration;
     }
 
-    public Double getAverage() {
-        return average;
+    public Double getAverageRpm() {
+        return averageRpm;
     }
 
-    public void setAverage(Double average) {
-        this.average = average;
+    public void setAverageRpm(Double averageRpm) {
+        this.averageRpm = averageRpm;
+    }
+
+    public Double getAverageRpmByTime() {
+        return averageRpmByTime;
+    }
+
+    public void setAverageRpmByTime(Double averageRpmByTime) {
+        this.averageRpmByTime = averageRpmByTime;
     }
 
     public Person getPerson() {

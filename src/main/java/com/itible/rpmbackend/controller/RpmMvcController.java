@@ -75,7 +75,8 @@ public class RpmMvcController {
         model.addAttribute("axisX", axisX);
         model.addAttribute("name", training.getPerson().getName());
         model.addAttribute("date", date);
-        model.addAttribute("average", training.getAverage());
+        model.addAttribute("averageRpm", training.getAverageRpm());
+        model.addAttribute("averageRpmByTime", training.getAverageRpmByTime());
         model.addAttribute("duration", training.getDuration().toString());
         model.addAttribute("showButton", true);
         return "trainingList";

@@ -34,7 +34,8 @@ public class RpmRestController {
         return trainingRepository.findAll().stream().map(temp -> {
             TrainingDto obj = new TrainingDto();
             obj.setDate(temp.getDate());
-            obj.setAverage(temp.getAverage());
+            obj.setAvgRpm(temp.getAverageRpm());
+            obj.setAvgRpmByTime(temp.getAverageRpmByTime());
             obj.setDuration(temp.getDuration());
             obj.setRpm(temp.getRpm());
             obj.setPersonName(temp.getPerson().getName());
@@ -49,7 +50,8 @@ public class RpmRestController {
         return trainingRepository.findByPerson(name).stream().map(temp -> {
             TrainingDto obj = new TrainingDto();
             obj.setDate(temp.getDate());
-            obj.setAverage(temp.getAverage());
+            obj.setAvgRpm(temp.getAverageRpm());
+            obj.setAvgRpmByTime(temp.getAverageRpmByTime());
             obj.setDuration(temp.getDuration());
             obj.setRpm(temp.getRpm());
             obj.setPersonName(temp.getPerson().getName());
@@ -77,7 +79,8 @@ public class RpmRestController {
     public void saveTraining(@RequestBody TrainingDto trainingDto) {
         Training training = new Training();
         training.setDate(trainingDto.getDate() == null ? new Date() : trainingDto.getDate());
-        training.setAverage(trainingDto.getAverage());
+        training.setAverageRpm(trainingDto.getAvgRpm());
+        training.setAverageRpmByTime(trainingDto.getAvgRpmByTime());
         training.setDuration(trainingDto.getDuration());
         training.setRpm(trainingDto.getRpm());
         Person person = personRepository.findByName(trainingDto.getPersonName());
@@ -106,7 +109,8 @@ public class RpmRestController {
         for (TrainingDto trainingDto : trainingDtos) {
             Training training = new Training();
             training.setDate(trainingDto.getDate());
-            training.setAverage(trainingDto.getAverage());
+            training.setAverageRpm(trainingDto.getAvgRpm());
+            training.setAverageRpmByTime(trainingDto.getAvgRpmByTime());
             training.setDuration(trainingDto.getDuration());
             training.setRpm(trainingDto.getRpm());
             Person person = personRepository.findByName(trainingDto.getPersonName());

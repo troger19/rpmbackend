@@ -17,7 +17,8 @@
             <th>ID</th>
             <th>Date</th>
             <th>Duration</th>
-            <th>Average</th>
+            <th>Average RPM</th>
+            <th>Average RPM by Time</th>
             <th>Person</th>
             <th>Delete</th>
         </tr>
@@ -25,7 +26,8 @@
             <td th:utext="${training.getTrainingId()}">...</td>
             <td th:utext="${#dates.format(training.getDate(), 'dd.MM.yyyy HH:mm')}">...</td>
             <td th:utext="${training.getDuration()}"></td>
-            <td th:utext="${training.getAverage()}">...</td>
+            <td th:utext="${training.getAverageRpm()}">...</td>
+            <td th:utext="${training.getAverageRpmByTime()}">...</td>
             <td th:utext="${training.getPerson().getName()}">...</td>
             <td><a th:href="@{/detail/__${training.trainingId}__}" class="btn btn-info">Detail</a>
             <td><a th:href="@{/delete/__${training.trainingId}__}" class="btn btn-danger">Delete</a>
@@ -53,7 +55,7 @@
             responsive: true,
             title: {
                 display: true,
-                text: '[[${name}]],  average = [[${average}]] , duration = [[${duration}]]',
+                text: '[[${name}]],  averageRpm = [[${averageRpm}]] ,  averageRpmByTime = [[${averageRpmByTime}]] , duration = [[${duration}]]',
                 fontColor: 'red',
                 fontSize: 30
             },
