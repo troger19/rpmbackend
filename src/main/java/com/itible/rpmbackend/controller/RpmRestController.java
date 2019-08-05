@@ -35,7 +35,7 @@ public class RpmRestController {
             TrainingDto obj = new TrainingDto();
             obj.setDate(temp.getDate());
             obj.setAvgRpm(temp.getAverageRpm());
-            obj.setAvgRpmByTime(temp.getAverageRpmByTime());
+            obj.setAvgRpmTime(temp.getAverageRpmByTime());
             obj.setDuration(temp.getDuration());
             obj.setRpm(temp.getRpm());
             obj.setPersonName(temp.getPerson().getName());
@@ -51,7 +51,7 @@ public class RpmRestController {
             TrainingDto obj = new TrainingDto();
             obj.setDate(temp.getDate());
             obj.setAvgRpm(temp.getAverageRpm());
-            obj.setAvgRpmByTime(temp.getAverageRpmByTime());
+            obj.setAvgRpmTime(temp.getAverageRpmByTime());
             obj.setDuration(temp.getDuration());
             obj.setRpm(temp.getRpm());
             obj.setPersonName(temp.getPerson().getName());
@@ -80,7 +80,7 @@ public class RpmRestController {
         Training training = new Training();
         training.setDate(trainingDto.getDate() == null ? new Date() : trainingDto.getDate());
         training.setAverageRpm(trainingDto.getAvgRpm());
-        training.setAverageRpmByTime(trainingDto.getAvgRpmByTime());
+        training.setAverageRpmByTime(trainingDto.getAvgRpmTime());
         training.setDuration(trainingDto.getDuration());
         training.setRpm(trainingDto.getRpm());
         Person person = personRepository.findByName(trainingDto.getPersonName());
@@ -110,7 +110,7 @@ public class RpmRestController {
             Training training = new Training();
             training.setDate(trainingDto.getDate());
             training.setAverageRpm(trainingDto.getAvgRpm());
-            training.setAverageRpmByTime(trainingDto.getAvgRpmByTime());
+            training.setAverageRpmByTime(trainingDto.getAvgRpmTime());
             training.setDuration(trainingDto.getDuration());
             training.setRpm(trainingDto.getRpm());
             Person person = personRepository.findByName(trainingDto.getPersonName());

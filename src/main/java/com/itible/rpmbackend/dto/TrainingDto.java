@@ -11,6 +11,6 @@ public class TrainingDto {
     private List<Integer> rpm;
     private Integer duration;
     private Double avgRpm;
-    private Double avgRpmByTime;
+    private Double avgRpmTime;
     private String personName;
 }
