@@ -2,6 +2,7 @@ package com.itible.rpmbackend.dto;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class TrainingDto {
     private Date date;
     private List<Integer> rpm;
     private Integer duration;
-    private Double avgRpm;
-    private Double avgRpmTime;
+    private BigDecimal avgRpm;
+    private BigDecimal avgRpmTime;
     private String personName;
 }
