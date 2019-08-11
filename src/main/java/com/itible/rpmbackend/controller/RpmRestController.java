@@ -8,6 +8,7 @@ import com.itible.rpmbackend.repository.PersonRepository;
 import com.itible.rpmbackend.repository.TrainingRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -143,5 +144,17 @@ public class RpmRestController {
         dto.setNumberOfTrainings(person.getTrainings().size());
         log.info("Returning person = " + name);
         return dto;
+    }
+
+    /**
+     * Wake UP Endpoint. For heroku to wake up the containier
+     *
+     * @return should return 200
+     */
+    @CrossOrigin(origins = "*")
+    @GetMapping("/health")
+    public ResponseEntity healthCheck() {
+        log.info("Health check!");
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
