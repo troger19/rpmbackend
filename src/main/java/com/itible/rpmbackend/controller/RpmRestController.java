@@ -57,7 +57,6 @@ public class RpmRestController {
             obj.setDuration(temp.getDuration());
             obj.setRpm(temp.getRpm());
             obj.setPersonName(temp.getPerson().getName());
-            log.info("trening : " + obj);
             return obj;
         }).collect(Collectors.toList());
     }
@@ -90,7 +89,6 @@ public class RpmRestController {
         training.setPerson(person);
         trainingRepository.save(training);
         log.info("Saving new training for user: " + person.getName());
-        log.info("getAverageRpmByTime " + training.getAverageRpmByTime() + " getAverageRpm" + training.getAverageRpm());
     }
 
     @CrossOrigin(origins = "*")
