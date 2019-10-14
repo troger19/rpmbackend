@@ -41,6 +41,7 @@ public class RpmRestController {
             obj.setDuration(temp.getDuration());
             obj.setRpm(temp.getRpm());
             obj.setPersonName(temp.getPerson().getName());
+            log.info("Training : " + obj);
             return obj;
         }).collect(Collectors.toList());
     }
@@ -57,6 +58,7 @@ public class RpmRestController {
             obj.setDuration(temp.getDuration());
             obj.setRpm(temp.getRpm());
             obj.setPersonName(temp.getPerson().getName());
+            log.info("trening : " + obj);
             return obj;
         }).collect(Collectors.toList());
     }
