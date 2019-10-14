@@ -88,6 +88,7 @@ public class RpmRestController {
         training.setPerson(person);
         trainingRepository.save(training);
         log.info("Saving new training for user: " + person.getName());
+        log.info("getAverageRpmByTime " + training.getAverageRpmByTime() + " getAverageRpm" + training.getAverageRpm());
     }
 
     @CrossOrigin(origins = "*")
