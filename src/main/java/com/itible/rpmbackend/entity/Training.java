@@ -1,6 +1,7 @@
 package com.itible.rpmbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@ToString
 public class Training implements Serializable {
     @JsonIgnore
     @Id

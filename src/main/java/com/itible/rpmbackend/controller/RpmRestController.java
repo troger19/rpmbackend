@@ -36,12 +36,11 @@ public class RpmRestController {
         return trainingRepository.findAll().stream().map(temp -> {
             TrainingDto obj = new TrainingDto();
             obj.setDate(temp.getDate());
-            obj.setAvgRpm(temp.getAverageRpm().setScale(1, RoundingMode.HALF_UP));
-            obj.setAvgRpmTime(temp.getAverageRpmByTime().setScale(1, RoundingMode.HALF_UP));
+            obj.setAvgRpm(temp.getAverageRpm());
+            obj.setAvgRpmTime(temp.getAverageRpmByTime());
             obj.setDuration(temp.getDuration());
             obj.setRpm(temp.getRpm());
             obj.setPersonName(temp.getPerson().getName());
-            log.info("Training : " + obj);
             return obj;
         }).collect(Collectors.toList());
     }
@@ -53,8 +52,8 @@ public class RpmRestController {
         return trainingRepository.findByPerson(name).stream().map(temp -> {
             TrainingDto obj = new TrainingDto();
             obj.setDate(temp.getDate());
-            obj.setAvgRpm(temp.getAverageRpm());
-            obj.setAvgRpmTime(temp.getAverageRpmByTime());
+            obj.setAvgRpm(temp.getAverageRpm().setScale(1, RoundingMode.HALF_UP));
+            obj.setAvgRpmTime(temp.getAverageRpmByTime().setScale(1, RoundingMode.HALF_UP));
             obj.setDuration(temp.getDuration());
             obj.setRpm(temp.getRpm());
             obj.setPersonName(temp.getPerson().getName());
