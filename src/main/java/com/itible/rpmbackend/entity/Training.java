@@ -23,7 +23,9 @@ public class Training implements Serializable {
 
     private Integer duration;
 
+    @Column(precision = 1)
     private BigDecimal averageRpm;
+    @Column(precision = 1)
     private BigDecimal averageRpmByTime;
 
     @JsonIgnore
