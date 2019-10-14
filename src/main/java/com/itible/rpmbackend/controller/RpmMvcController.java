@@ -45,6 +45,9 @@ public class RpmMvcController {
     @RequestMapping(value = {"/trainings"}, method = RequestMethod.GET)
     public String trainingList(Model model) {
         List<Training> trainings = trainingRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
+        for (Training training : trainings) {
+            System.out.println(training.getAverageRpm());
+        }
         model.addAttribute("trainings", trainings);
         return "trainingList";
     }
