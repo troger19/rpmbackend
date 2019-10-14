@@ -26,8 +26,8 @@
             <td th:utext="${training.getTrainingId()}">...</td>
             <td th:utext="${#dates.format(training.getDate(), 'dd.MM.yyyy HH:mm')}">...</td>
             <td th:utext="${training.getDuration()}"></td>
-            <td th:utext="${training.getAverageRpm().setScale(1)}">...</td>
-            <td th:utext="${training.getAverageRpmByTime().setScale(1)}">...</td>
+            <td th:utext="${training.getAverageRpm()}">...</td>
+            <td th:utext="${training.getAverageRpmByTime()}">...</td>
             <td th:utext="${training.getPerson().getName()}">...</td>
             <td><a th:href="@{/detail/__${training.trainingId}__}" class="btn btn-info">Detail</a>
             <td><a th:href="@{/delete/__${training.trainingId}__}" class="btn btn-danger">Delete</a>
