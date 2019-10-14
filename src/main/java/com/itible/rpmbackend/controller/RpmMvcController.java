@@ -4,7 +4,7 @@ import com.itible.rpmbackend.entity.Person;
 import com.itible.rpmbackend.entity.Training;
 import com.itible.rpmbackend.repository.PersonRepository;
 import com.itible.rpmbackend.repository.TrainingRepository;
-import org.springframework.data.domain.Sort;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/")
+@Slf4j
 public class RpmMvcController {
 
     private final TrainingRepository trainingRepository;
@@ -44,10 +46,19 @@ public class RpmMvcController {
 
     @RequestMapping(value = {"/trainings"}, method = RequestMethod.GET)
     public String trainingList(Model model) {
-        List<Training> trainings = trainingRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
-        for (Training training : trainings) {
-            System.out.println(training.getAverageRpm());
-        }
+//        List<Training> trainings = trainingRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
+        List<Training> trainings = trainingRepository.findAll().stream().map(temp -> {
+            Training obj = new Training();
+            obj.setDate(temp.getDate());
+            obj.setAverageRpm(temp.getAverageRpm().setScale(1, RoundingMode.HALF_UP));
+            obj.setAverageRpmByTime(temp.getAverageRpmByTime().setScale(1, RoundingMode.HALF_UP));
+            obj.setDuration(temp.getDuration());
+            obj.setRpm(temp.getRpm());
+            obj.setPerson(temp.getPerson());
+            log.info("Training : " + obj);
+            return obj;
+        }).collect(Collectors.toList());
+
         model.addAttribute("trainings", trainings);
         return "trainingList";
     }
