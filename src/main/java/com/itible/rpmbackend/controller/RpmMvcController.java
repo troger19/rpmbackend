@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -47,11 +49,12 @@ public class RpmMvcController {
     @RequestMapping(value = {"/trainings"}, method = RequestMethod.GET)
     public String trainingList(Model model) {
 //        List<Training> trainings = trainingRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
-        List<Training> trainings = trainingRepository.findAll().stream().map(temp -> {
+        List<Training> trainings = trainingRepository.findAll().stream().sorted(Comparator.comparing(Training::getDate)).map(temp -> {
             Training obj = new Training();
+            obj.setTrainingId(temp.getTrainingId());
             obj.setDate(temp.getDate());
-            obj.setAverageRpm(temp.getAverageRpm().setScale(1, RoundingMode.HALF_UP));
-            obj.setAverageRpmByTime(temp.getAverageRpmByTime().setScale(1, RoundingMode.HALF_UP));
+            obj.setAverageRpm(temp.getAverageRpm() == null ? BigDecimal.ZERO : temp.getAverageRpm().setScale(1, RoundingMode.HALF_UP));
+            obj.setAverageRpmByTime(temp.getAverageRpm() == null ? BigDecimal.ZERO : temp.getAverageRpmByTime().setScale(1, RoundingMode.HALF_UP));
             obj.setDuration(temp.getDuration());
             obj.setRpm(temp.getRpm());
             obj.setPerson(temp.getPerson());
