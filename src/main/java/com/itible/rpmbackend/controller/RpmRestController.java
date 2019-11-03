@@ -79,13 +79,16 @@ public class RpmRestController {
     @PostMapping("/training")
     @ResponseStatus(HttpStatus.OK)
     public void saveTraining(@RequestBody TrainingDto trainingDto) {
+        Person person = personRepository.findByName(trainingDto.getPersonName());
+        if (person == null) {
+            throw new IllegalStateException("User " + trainingDto.getPersonName() + " doesn't exists! ");
+        }
         Training training = new Training();
         training.setDate(trainingDto.getDate() == null ? new Date() : trainingDto.getDate());
         training.setAverageRpm(trainingDto.getAvgRpm());
         training.setAverageRpmByTime(trainingDto.getAvgRpmTime());
         training.setDuration(trainingDto.getDuration());
         training.setRpm(trainingDto.getRpm());
-        Person person = personRepository.findByName(trainingDto.getPersonName());
         training.setPerson(person);
         trainingRepository.save(training);
         log.info("Saving new training for user: " + person.getName());

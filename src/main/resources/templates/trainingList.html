@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <meta charset="UTF-8"/>
@@ -65,6 +65,9 @@
             },
             scales: {
                 xAxes: [{
+                    ticks: {
+                        maxTicksLimit: 10
+                    },
                     display: true,
                     scaleLabel: {
                         display: true,
