@@ -92,8 +92,10 @@ public class RpmMvcController {
         model.addAttribute("axisX", axisX);
         model.addAttribute("name", training.getPerson().getName());
         model.addAttribute("date", date);
-        model.addAttribute("averageRpm", training.getAverageRpm());
-        model.addAttribute("averageRpmByTime", training.getAverageRpmByTime());
+        model.addAttribute("averageRpm", training.getAverageRpm() == null ? BigDecimal.ZERO :
+                training.getAverageRpm().setScale(1, RoundingMode.HALF_UP));
+        model.addAttribute("averageRpmByTime", training.getAverageRpmByTime() == null ? BigDecimal.ZERO :
+                training.getAverageRpmByTime().setScale(1, RoundingMode.HALF_UP));
         model.addAttribute("duration", training.getDuration().toString());
         model.addAttribute("showButton", true);
         return "trainingList";
