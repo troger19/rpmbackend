@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -62,6 +63,24 @@ public class RpmRestController {
     }
 
     @CrossOrigin(origins = "*")
+    @PutMapping("/training/{id}")
+    public Long updateTrainingById(@PathVariable long id, @RequestBody TrainingDto trainingDto) {
+        Optional<Training> training = trainingRepository.findById(id);
+        if (training.isPresent()) {
+            training.get().setDate(trainingDto.getDate() == null ? new Date() : trainingDto.getDate());
+            training.get().setAverageRpm(trainingDto.getAvgRpm());
+            training.get().setAverageRpmByTime(trainingDto.getAvgRpmTime());
+            training.get().setDuration(trainingDto.getDuration());
+            training.get().setRpm(trainingDto.getRpm());
+            trainingRepository.save(training.get());
+            log.info("Updating training with id : " + id + "with " + trainingDto.getRpm().size() + " elements.");
+            return id;
+        } else {
+            throw new IllegalStateException("Training with id : " + id + "not found!");
+        }
+    }
+
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/training")
     public void deleteAllTrainings() {
         log.info("delete all trainings");
@@ -78,7 +97,7 @@ public class RpmRestController {
     @CrossOrigin(origins = "*")
     @PostMapping("/training")
     @ResponseStatus(HttpStatus.OK)
-    public void saveTraining(@RequestBody TrainingDto trainingDto) {
+    public Long saveTraining(@RequestBody TrainingDto trainingDto) {
         Person person = personRepository.findByName(trainingDto.getPersonName());
         if (person == null) {
             throw new IllegalStateException("User " + trainingDto.getPersonName() + " doesn't exists! ");
@@ -92,6 +111,8 @@ public class RpmRestController {
         training.setPerson(person);
         trainingRepository.save(training);
         log.info("Saving new training for user: " + person.getName());
+
+        return training.getTrainingId();
     }
 
     @CrossOrigin(origins = "*")

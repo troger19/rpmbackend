@@ -81,6 +81,21 @@
                         labelString: 'RPM'
                     }
                 }]
+            },
+            pan: {
+                enabled: true,
+                mode: "x",
+                speed: 10,
+                threshold: 10
+            },
+            zoom: {
+                enabled: true,
+                drag: false,
+                mode: "xy",
+                limits: {
+                    max: 10,
+                    min: 0.5
+                }
             }
         }
     });
