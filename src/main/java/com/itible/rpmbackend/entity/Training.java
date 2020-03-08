@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 @Entity
 @ToString
@@ -23,10 +23,16 @@ public class Training implements Serializable {
 //    @ElementCollection(targetClass = Integer.class)
 //    private List<Integer> rpm;
 
-    @ElementCollection(targetClass = Integer.class)
-    @CollectionTable(name = "TRAINING_RPMS", joinColumns = @JoinColumn(name = "ID"))
+//    @ElementCollection(targetClass = Integer.class)
+//    @CollectionTable(name = "TRAINING_RPMS", joinColumns = @JoinColumn(name = "ID"))
+//    @Column(name = "RPM")
+//    private List<Integer> rpm;
+
+    @ElementCollection
+    @CollectionTable(name = "RPM_BY_SECONDS", joinColumns = @JoinColumn(name = "ID"))
+    @MapKeyColumn(name = "SECOND")
     @Column(name = "RPM")
-    private List<Integer> rpm;
+    private Map<Integer, Integer> rpm;
 
     private Integer duration;
 
@@ -56,11 +62,20 @@ public class Training implements Serializable {
         this.date = date;
     }
 
-    public List<Integer> getRpm() {
+//    public List<Integer> getRpm() {
+//        return rpm;
+//    }
+//
+//    public void setRpm(List<Integer> rpm) {
+//        this.rpm = rpm;
+//    }
+
+
+    public Map<Integer, Integer> getRpm() {
         return rpm;
     }
 
-    public void setRpm(List<Integer> rpm) {
+    public void setRpm(Map<Integer, Integer> rpm) {
         this.rpm = rpm;
     }
 
