@@ -28,7 +28,9 @@ Go to heroku.com, Click on Heroku Postres  -> Settings -> Database Credentials
 Heroku CLI -> Execute in Commnad line
 heroku pg:psql postgresql-acute-84772 --app rpmbackend
 select * from person;
+select * from training;
 
+select * from RPM_BY_SECONDS;
 
 
 Backup PostreSQL database
