@@ -20,7 +20,12 @@ public class Training implements Serializable {
 
     private Date date;
 
+//    @ElementCollection(targetClass = Integer.class)
+//    private List<Integer> rpm;
+
     @ElementCollection(targetClass = Integer.class)
+    @CollectionTable(name = "TRAINING_RPMS", joinColumns = @JoinColumn(name = "ID"))
+    @Column(name = "RPM")
     private List<Integer> rpm;
 
     private Integer duration;
