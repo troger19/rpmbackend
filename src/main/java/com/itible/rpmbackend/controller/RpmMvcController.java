@@ -17,10 +17,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/")
@@ -87,9 +87,15 @@ public class RpmMvcController {
         Training training = trainingRepository.getOne(Long.parseLong(id));
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String date = format.format(training.getDate());
-        List<Integer> axisX = IntStream.rangeClosed(1, training.getRpm().size()).boxed().collect(Collectors.toList());
-        model.addAttribute("rpms", training.getRpm());
+//        List<Integer> axisX = IntStream.rangeClosed(1, training.getRpm().size()).boxed().collect(Collectors.toList());
+        List<Integer> axisX = new ArrayList<>();
+        List<Integer> axisY = new ArrayList<>();
+        training.getRpm().forEach((key, value) -> {
+            axisX.add(key);
+            axisY.add(value);
+        });
         model.addAttribute("axisX", axisX);
+        model.addAttribute("rpms", axisY); //data
         model.addAttribute("name", training.getPerson().getName());
         model.addAttribute("date", date);
         model.addAttribute("averageRpm", training.getAverageRpm() == null ? BigDecimal.ZERO :
