@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.RoundingMode;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -44,6 +42,45 @@ public class RpmRestController {
             obj.setPersonName(temp.getPerson().getName());
             return obj;
         }).collect(Collectors.toList());
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/training/{name}/{id}")
+    public TrainingDto getTrainingById(@PathVariable long id) {
+        log.info("training ny id : " + id);
+        Optional<Training> training = trainingRepository.findById(id);
+        if (training.isPresent()) {
+            TrainingDto obj = new TrainingDto();
+            obj.setDate(training.get().getDate());
+            obj.setAvgRpm(training.get().getAverageRpm().setScale(1, RoundingMode.HALF_UP));
+            obj.setAvgRpmTime(training.get().getAverageRpmByTime().setScale(1, RoundingMode.HALF_UP));
+            obj.setDuration(training.get().getDuration());
+            obj.setRpm(training.get().getRpm());
+            obj.setPersonName(training.get().getPerson().getName());
+            return obj;
+        } else {
+            throw new IllegalStateException("Training with id : " + id + "not found!");
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/training/record/{id}")
+    public TrainingDto getRecordTraining(@PathVariable long id) {
+        TrainingDto recordTraining = getTrainingById(id);
+        Map<Integer, Integer> rpm1 = new HashMap<>();
+
+        final int[] sum = {0};
+        recordTraining.getRpm().forEach((key, value) -> {
+            sum[0] += value;
+            System.out.println(key + "   " + value);
+            if (key % 10 == 0) {
+                rpm1.put(key, sum[0]);
+            }
+        });
+
+        recordTraining.setRpm(rpm1);
+
+        return recordTraining;
     }
 
     @CrossOrigin(origins = "*")
